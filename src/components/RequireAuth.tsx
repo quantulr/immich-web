@@ -1,15 +1,15 @@
 import useAuthStore from "@/store/auth.ts";
-import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 
-const UnAuth = () => {
+const RequireAuth = () => {
   const immichIsAuthenticated = useAuthStore(
     (state) => state.immichIsAuthenticated,
   );
   const navigate = useNavigate();
   useEffect(() => {
-    if (immichIsAuthenticated) {
-      navigate("/");
+    if (!immichIsAuthenticated) {
+      navigate("/login");
     }
   }, [immichIsAuthenticated]);
   return (
@@ -19,4 +19,4 @@ const UnAuth = () => {
   );
 };
 
-export default UnAuth;
+export default RequireAuth;
